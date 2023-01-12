@@ -5,10 +5,12 @@ const initialValue = {
   users: [],
   userDetail: null,
   taxes: [],
+  taxDetail: null,
   loggedUser: {
     access_token: localStorage.access_token,
     _id: localStorage._id,
     name: localStorage.name,
+    role: localStorage.role,
   },
 };
 
@@ -19,13 +21,17 @@ function dataReducers(state = initialValue, action) {
     case "data/fetchUserDetail":
       return { ...state, userDetail: action.payload };
     case "data/clearUserDetail":
-      return { ...state, karyawanDetail: null };
+      return { ...state, userDetail: null };
     case "data/fetchTaxes":
       return { ...state, taxes: action.payload };
+    case "data/fetchTaxDetail":
+      return { ...state, taxDetail: action.payload };
+    case "data/clearTaxDetail":
+      return { ...state, taxDetail: null };
     case "user/login":
       return { ...state, loggedUser: action.payload };
     case "user/logout":
-      return { ...state, loggedUser: null };
+      return initialValue;
     default:
       return state;
   }

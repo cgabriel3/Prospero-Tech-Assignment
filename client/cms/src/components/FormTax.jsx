@@ -18,6 +18,7 @@ export default function FormTax(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(createTax(input)).then((_) => {
+      setInput("");
       props.onHide();
     });
   };

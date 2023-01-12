@@ -14,6 +14,7 @@ export const router = createBrowserRouter([
       if (!localStorage.access_token) {
         return redirect("/login");
       }
+      return null;
     },
     children: [
       {
@@ -23,6 +24,12 @@ export const router = createBrowserRouter([
       {
         path: "users",
         element: <Users />,
+        loader: () => {
+          if (localStorage.role !== "ADMIN") {
+            return redirect("/");
+          }
+          return null;
+        },
       },
     ],
   },
@@ -33,6 +40,7 @@ export const router = createBrowserRouter([
       if (localStorage.access_token) {
         return redirect("/");
       }
+      return null;
     },
   },
 ]);

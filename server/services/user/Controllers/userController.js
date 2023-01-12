@@ -71,6 +71,8 @@ class UserController {
         access_token,
         name: user.name,
         email: user.email,
+        _id: user._id,
+        role: user.role,
       });
     } catch (error) {
       console.log(error);

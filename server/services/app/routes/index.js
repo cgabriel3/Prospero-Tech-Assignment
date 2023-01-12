@@ -12,5 +12,6 @@ router.get("/", TaxController.read);
 router.post("/", authorizeMaker, TaxController.create);
 router.patch("/:id", authorizeChecker, TaxController.update);
 router.delete("/:id", TaxController.delete);
+router.get("/:id", TaxController.findOne);
 
 module.exports = router;

@@ -14,8 +14,19 @@ class Tax {
   }
   static async read(role) {
     try {
+      let query = {};
+      if (role === "APPROVER") {
+        query.status = "Approved";
+      } else if (role === "CHECKER" || role === "MAKER") {
+        query.status = "Created";
+      } else if (role !== "ADMIN") {
+        throw { name: "forbidden" };
+      }
       const collection = await this.getCollection();
-      const taxes = await collection.find().toArray();
+      const taxes = await collection
+        .find(query)
+        .sort({ createdAt: 1 })
+        .toArray();
 
       return taxes;
     } catch (error) {
@@ -48,10 +59,20 @@ class Tax {
 
       const taxes = await collection.updateOne(
         { _id: ObjectId(id) },
-        { $set: status }
+        { $set: { status } }
       );
 
       return taxes;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  static async findByPk(id) {
+    try {
+      const collection = await this.getCollection();
+      const tax = await collection.findOne({ _id: ObjectId(id) });
+
+      return tax;
     } catch (error) {
       console.log(error);
     }

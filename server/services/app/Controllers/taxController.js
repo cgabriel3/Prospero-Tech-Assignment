@@ -41,8 +41,18 @@ class TaxController {
     try {
       const { id } = req.params;
       const { status } = req.body;
-      await User.update(id, status);
+      await Tax.update(id, status);
       res.status(200).json({ message: `Success update tax` });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  static async findOne(req, res, next) {
+    try {
+      let { id } = req.params;
+      const tax = await Tax.findByPk(id);
+
+      res.status(200).json(tax);
     } catch (error) {
       console.log(error);
     }

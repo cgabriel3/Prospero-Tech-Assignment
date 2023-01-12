@@ -1,7 +1,8 @@
 const authorizeMaker = async (req, res, next) => {
   try {
-    // if (req.user.role !== "MAKER") throw { name: "forbidden" };
-    if (req.user.role !== "ADMIN") throw { name: "forbidden" };
+    console.log(req.user);
+    if (req.user.role !== "MAKER") throw { name: "forbidden" };
+    // if (req.user.role !== "ADMIN") throw { name: "forbidden" };
 
     next();
   } catch (error) {
@@ -10,6 +11,7 @@ const authorizeMaker = async (req, res, next) => {
 };
 const authorizeChecker = async (req, res, next) => {
   try {
+    // if (req.user.role !== "ADMIN") throw { name: "forbidden" };
     if (req.user.role !== "CHECKER") throw { name: "forbidden" };
     next();
   } catch (error) {

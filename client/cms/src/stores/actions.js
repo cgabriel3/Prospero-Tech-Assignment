@@ -1,11 +1,12 @@
 import { swalError, swalSuccess } from "../helpers/swal";
 
 const base_url = "http://localhost:4000/api";
-const access_token = localStorage.access_token;
 
 export const fetchUsers = () => {
   return (dispatch) => {
-    return fetch(`${base_url}/users`, { headers: { access_token } })
+    return fetch(`${base_url}/users`, {
+      headers: { access_token: localStorage.access_token },
+    })
       .then((res) => {
         if (!res.ok) throw res.json();
         return res.json();
@@ -24,7 +25,7 @@ export const fetchUsers = () => {
 export const fetchTaxes = () => {
   return (dispatch) => {
     return fetch(`${base_url}/pajak`, {
-      headers: { access_token },
+      headers: { access_token: localStorage.access_token },
     })
       .then((res) => {
         if (!res.ok) throw res.json();
@@ -44,7 +45,9 @@ export const fetchTaxes = () => {
 
 export const fetchUserDetail = (id) => {
   return (dispatch) => {
-    return fetch(`${base_url}/users/${id}`, { headers: { access_token } })
+    return fetch(`${base_url}/users/${id}`, {
+      headers: { access_token: localStorage.access_token },
+    })
       .then((res) => {
         if (!res.ok) throw res.json();
         return res.json();
@@ -52,6 +55,26 @@ export const fetchUserDetail = (id) => {
       .then((data) =>
         dispatch({
           type: "data/fetchUserDetail",
+          payload: data,
+        })
+      )
+      .catch((err) => {
+        err.then(({ message }) => swalError(message));
+      });
+  };
+};
+export const fetchTaxDetail = (id) => {
+  return (dispatch) => {
+    return fetch(`${base_url}/pajak/${id}`, {
+      headers: { access_token: localStorage.access_token },
+    })
+      .then((res) => {
+        if (!res.ok) throw res.json();
+        return res.json();
+      })
+      .then((data) =>
+        dispatch({
+          type: "data/fetchTaxDetail",
           payload: data,
         })
       )
@@ -68,7 +91,7 @@ export const createUser = (obj) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        access_token,
+        access_token: localStorage.access_token,
       },
       body: JSON.stringify(obj),
     })
@@ -92,7 +115,7 @@ export const updateUser = (id, obj) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        access_token,
+        access_token: localStorage.access_token,
       },
       body: JSON.stringify(obj),
     })
@@ -102,7 +125,7 @@ export const updateUser = (id, obj) => {
         return res.json();
       })
       .then((data) => {
-        swalSuccess(`Sukses merubah karyawan!`);
+        swalSuccess(`Sukses merubah user!`);
       })
       .catch((err) => {
         err.then(({ message }) => swalError(message));
@@ -113,14 +136,14 @@ export const deleteUser = (id) => {
   return (dispatch, getState) => {
     return fetch(`${base_url}/users/${id}`, {
       method: "delete",
-      headers: { access_token },
+      headers: { access_token: localStorage.access_token },
     })
       .then((res) => {
         if (!res.ok) throw res.json();
         return;
       })
       .then(() => {
-        swalSuccess(`Sukses menghapus karyawan!`);
+        swalSuccess(`Sukses menghapus user!`);
         dispatch(fetchUsers());
       })
       .catch((err) => {
@@ -135,7 +158,7 @@ export const createTax = (obj) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        access_token,
+        access_token: localStorage.access_token,
       },
       body: JSON.stringify(obj),
     })
@@ -152,16 +175,16 @@ export const createTax = (obj) => {
       });
   };
 };
-export const updateTax = (id, obj) => {
+export const updateTax = (id, str) => {
   return (dispatch) => {
     return fetch(`${base_url}/pajak/${id}`, {
-      method: "patch",
+      method: "put",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        access_token,
+        access_token: localStorage.access_token,
       },
-      body: JSON.stringify(obj),
+      body: JSON.stringify({ status: str }),
     })
       .then((res) => {
         if (!res.ok) throw res.json;
@@ -180,7 +203,7 @@ export const deleteTax = (id) => {
   return (dispatch, getState) => {
     return fetch(`${base_url}/pajak/${id}`, {
       method: "delete",
-      headers: { access_token },
+      headers: { access_token: localStorage.access_token },
     })
       .then((res) => {
         if (!res.ok) throw res.json();
@@ -213,23 +236,15 @@ export const login = (obj) => {
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("_id", data._id);
         localStorage.setItem("name", data.name);
+        localStorage.setItem("role", data.role);
         dispatch({
           type: "user/login",
           payload: data,
         });
-        swalSuccess(`Sukses login}!`);
+        swalSuccess(`Sukses login!`);
       })
       .catch((err) => {
         err.then(({ message }) => swalError(message));
       });
-  };
-};
-export const logout = () => {
-  return (dispatch) => {
-    localStorage.clear();
-    dispatch({
-      type: "user/logout",
-    });
-    return;
   };
 };

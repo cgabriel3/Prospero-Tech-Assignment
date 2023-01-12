@@ -24,15 +24,11 @@ export default function FormUser(props) {
       });
   }, [props.show, props.userDetail]);
 
-  useEffect(
-    () => console.log(">>>>>>>>>", props.userDetail),
-    [props.userDetail]
-  );
-
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
+    console.log(input);
   };
 
   const handleSubmit = (event) => {
@@ -55,7 +51,9 @@ export default function FormUser(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Form User</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {props.show === "add" ? "Form User" : "Edit User"}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
@@ -89,16 +87,16 @@ export default function FormUser(props) {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group as={Col} md="12" className="mb-3">
+          {/* <Form.Group as={Col} md="12" className="mb-3">
             <Form.Label>Konfirmasi Kata Sandi</Form.Label>
             <Form.Control
               type="password"
               placeholder="Masukkan kembali Kata Sandi"
-              value={input.password}
-              name="password"
+              value={input.password2}
+              name="password2"
               onChange={handleChange}
             />
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group as={Col} md="12" className="mb-3">
             <Form.Label>Posisi</Form.Label>
             <Form.Select

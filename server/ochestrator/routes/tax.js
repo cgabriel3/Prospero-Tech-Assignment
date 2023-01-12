@@ -4,7 +4,8 @@ const router = express.Router();
 
 router.get("/", TaxController.read);
 router.post("/", TaxController.create);
-router.patch("/:id", TaxController.update);
+router.put("/:id", TaxController.update);
 router.delete("/:id", TaxController.delete);
+router.get("/:id", TaxController.findOne);
 
 module.exports = router;

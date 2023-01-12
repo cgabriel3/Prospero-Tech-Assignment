@@ -63,6 +63,21 @@ class TaxController {
       console.log(error);
     }
   }
+  static async findOne(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { access_token } = req.headers;
+      const { data, status } = await axios({
+        method: "get",
+        url: `${taxPath}/pajak/${id}`,
+        headers: { access_token },
+      });
+
+      res.status(status).json(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = TaxController;
