@@ -8,6 +8,10 @@ const errorHandler = (err, req, res, next) => {
       code = 400;
       message = "Please fill in the the receipt number";
       break;
+    case "tax_registered":
+      code = 400;
+      message = "Receipt number has been registered";
+      break;
     case "unauthorized":
     case "JsonWebTokenError":
       code = 401;

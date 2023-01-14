@@ -12,6 +12,10 @@ const errorHandler = (err, req, res, next) => {
       code = 400;
       message = "Please fill in the requiered fields";
       break;
+    case "email_registered":
+      code = 400;
+      message = "Email has been registered";
+      break;
     case "invalid_credentials":
       code = 401;
       message = "Invalid email or password";
