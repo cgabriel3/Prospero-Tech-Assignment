@@ -85,7 +85,6 @@ export const fetchTaxDetail = (id) => {
 };
 export const createUser = (obj) => {
   return (dispatch) => {
-    console.log(obj);
     return fetch(`${base_url}/users`, {
       method: "post",
       headers: {
@@ -200,7 +199,7 @@ export const updateTax = (id, str) => {
   };
 };
 export const deleteTax = (id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return fetch(`${base_url}/pajak/${id}`, {
       method: "delete",
       headers: { access_token: localStorage.access_token },

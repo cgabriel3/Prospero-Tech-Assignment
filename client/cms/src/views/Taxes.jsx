@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import PulseLoader from "react-spinners/PulseLoader";
 import { useEffect } from "react";
-import { deleteTax, fetchTaxDetail, fetchTaxes } from "../stores/actions";
+import { fetchTaxDetail, fetchTaxes } from "../stores/actions";
 import FormTax from "../components/FormTax";
 import FormTaxEdit from "../components/FormTaxEdit";
 
@@ -17,7 +17,7 @@ export default function Taxes() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTaxes()).then((_) => setLoad(false));
+    dispatch(fetchTaxes()).then((_) => setLoad(false)); // eslint-disable-next-line
   }, []);
 
   if (load) {
@@ -89,16 +89,18 @@ export default function Taxes() {
                   {(loggedUser.role === "CHECKER" ||
                     loggedUser.role === "APPROVER") && (
                     <td>
-                      <Button
-                        variant="primary"
-                        onClick={() => {
-                          dispatch(fetchTaxDetail(el._id));
-                          setEdit(true);
-                        }}
-                        className="me-2"
-                      >
-                        Ubah
-                      </Button>
+                      {el.status !== "Rejected" && (
+                        <Button
+                          variant="primary"
+                          onClick={() => {
+                            dispatch(fetchTaxDetail(el._id));
+                            setEdit(true);
+                          }}
+                          className="me-2"
+                        >
+                          Ubah
+                        </Button>
+                      )}
                       {/* <Button
                       onClick={() => dispatch(deleteTax(el._id))}
                       variant="danger"

@@ -9,7 +9,6 @@ const authorizeMaker = async (req, res, next) => {
 };
 const authorizeStatus = async (req, res, next) => {
   try {
-    console.log(req.user);
     if (req.user.role !== "CHECKER" && req.user.role !== "APPROVER")
       throw { name: "forbidden" };
 

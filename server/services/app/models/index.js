@@ -17,12 +17,22 @@ class Tax {
       let query = {};
       if (role === "APPROVER") {
         query = {
-          $or: [{ status: "Created" }, { status: "Checked" }],
+          $or: [
+            { status: "Rejected" },
+            { status: "Checked" },
+            { status: "Approved" },
+          ],
         };
-      } else if (role === "CHECKER" || role === "MAKER") {
-        query.status = "Created";
-      } else if (role !== "ADMIN") {
-        throw { name: "forbidden" };
+      } else if (role === "CHECKER") {
+        query = {
+          $or: [
+            { status: "Rejected" },
+            { status: "Created" },
+            { status: "Checked" },
+          ],
+        };
+      } else if (role === "MAKER") {
+        query = { status: "Created" };
       }
       const collection = await this.getCollection();
       const taxes = await collection

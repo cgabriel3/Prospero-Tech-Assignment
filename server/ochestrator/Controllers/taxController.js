@@ -24,10 +24,9 @@ class TaxController {
       taxData.map((tax) => {
         tax.updatedBy = userData.find((user) => user._id === tax.updatedBy);
       });
-      console.log(">>>>>>>>", taxData);
       res.status(200).json(taxData);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async delete(req, res, next) {
@@ -41,13 +40,12 @@ class TaxController {
       });
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async create(req, res, next) {
     try {
       const { receiptNumber } = req.body;
-      console.log(receiptNumber);
       const { access_token } = req.headers;
       const { data, status } = await axios({
         method: "post",
@@ -57,7 +55,7 @@ class TaxController {
       });
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async update(req, res, next) {
@@ -73,7 +71,7 @@ class TaxController {
       });
       res.status(statusCode).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async findOne(req, res, next) {
@@ -88,7 +86,7 @@ class TaxController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
 }

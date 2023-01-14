@@ -3,13 +3,13 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchUserDetail } from "../stores/actions";
+// import { fetchUserDetail } from "../stores/actions";
 import FormUser from "./FormUser";
 
 export default function NavBar() {
   const { loggedUser } = useSelector((state) => state);
   const [modalShow, setModalShow] = useState(false);
-  const { users, userDetail } = useSelector((state) => state);
+  const { userDetail } = useSelector((state) => state);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

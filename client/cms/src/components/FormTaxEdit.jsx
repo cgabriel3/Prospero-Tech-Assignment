@@ -1,18 +1,11 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateTax } from "../stores/actions";
 import { useEffect } from "react";
 
 export default function FormTaxEdit(props) {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(props.taxDetail);
-  }, [props.show, props.taxDetail]);
 
   return (
     <Modal

@@ -12,7 +12,7 @@ class UserController {
       });
       res.status(status).json(data);
     } catch (error) {
-      // console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async delete(req, res, next) {
@@ -27,7 +27,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async create(req, res, next) {
@@ -43,7 +43,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async update(req, res, next) {
@@ -60,7 +60,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async login(req, res, next) {
@@ -74,7 +74,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async findOne(req, res, next) {
@@ -89,7 +89,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
 }
