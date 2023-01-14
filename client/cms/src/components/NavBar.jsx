@@ -53,7 +53,7 @@ export default function NavBar() {
             title={loggedUser.name}
             // className="align-items-center"
           >
-            <Dropdown.Item
+            {/* <Dropdown.Item
               href="#"
               onClick={(e) => {
                 e.preventDefault();
@@ -63,7 +63,7 @@ export default function NavBar() {
             >
               Ubah Akun
             </Dropdown.Item>
-            <Dropdown.Divider />
+            <Dropdown.Divider /> */}
             <Dropdown.Item href="#" onClick={handleLogout}>
               Log Out
             </Dropdown.Item>

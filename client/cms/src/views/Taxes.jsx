@@ -49,7 +49,7 @@ export default function Taxes() {
       <div className="container mt-3">
         <h1 className="display-2 mb-2">Pajak</h1>
 
-        {(loggedUser.role === "MAKER" || loggedUser.role === "ADMIN") && (
+        {loggedUser.role === "MAKER" && (
           <Button
             variant="warning"
             className="mb-5"
@@ -58,6 +58,7 @@ export default function Taxes() {
             Tambah Pajak Baru
           </Button>
         )}
+        {loggedUser.role !== "MAKER" && <div className="mb-5" />}
 
         <Table responsive>
           <thead>
@@ -65,6 +66,7 @@ export default function Taxes() {
               <th>#</th>
               <th>Nomor Resi</th>
               <th>Tanggal dibuat</th>
+              <th>Diubah oleh</th>
               <th>Status</th>
               <th></th>
             </tr>
@@ -74,13 +76,18 @@ export default function Taxes() {
               return (
                 <tr
                   key={i}
-                  className={el.status === "Rejected" ? "text-muted" : ""}
+                  className={
+                    (el.status === "Rejected" ? "text-muted" : "") +
+                    " align-middle"
+                  }
                 >
                   <td>{i + 1}</td>
                   <td>{el.receiptNumber}</td>
                   <td>{formatedDate(el.createdAt)}</td>
+                  <td>{el.updatedBy.name}</td>
                   <td>{el.status}</td>
-                  {loggedUser.role === "CHECKER" && (
+                  {(loggedUser.role === "CHECKER" ||
+                    loggedUser.role === "APPROVER") && (
                     <td>
                       <Button
                         variant="primary"
@@ -112,6 +119,7 @@ export default function Taxes() {
         show={edit}
         onHide={() => setEdit(false)}
         taxDetail={taxDetail}
+        role={loggedUser.role}
       />
     </>
   );

@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post("/login", UserController.login);
 router.use(authenticate);
+router.get("/userlist", UserController.getList);
 router.get("/", authorizeAdmin, UserController.read);
 router.post("/", authorizeAdmin, UserController.create);
 router.get("/:id", authorizeAdmin, UserController.findOne);

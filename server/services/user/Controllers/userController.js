@@ -88,6 +88,14 @@ class UserController {
       console.log(error);
     }
   }
+  static async getList(req, res, next) {
+    try {
+      const users = await User.getList();
+      res.status(200).json(users);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = UserController;

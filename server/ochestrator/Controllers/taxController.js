@@ -7,12 +7,25 @@ class TaxController {
   static async read(req, res, next) {
     try {
       const { access_token } = req.headers;
-      const { data, status } = await axios({
+      const { data: taxData, status: taxStatus } = await axios({
         method: "get",
         url: `${taxPath}/pajak`,
         headers: { access_token },
       });
-      res.status(status).json(data);
+      const { data: userData, status: userStatus } = await axios({
+        method: "get",
+        url: `${userPath}/users/userlist`,
+        headers: { access_token },
+      });
+
+      if (taxStatus !== 200) res.status(taxStatus).json(taxData);
+      if (userStatus !== 200) res.status(userStatus).json(userData);
+
+      taxData.map((tax) => {
+        tax.updatedBy = userData.find((user) => user._id === tax.updatedBy);
+      });
+      console.log(">>>>>>>>", taxData);
+      res.status(200).json(taxData);
     } catch (error) {
       console.log(error);
     }

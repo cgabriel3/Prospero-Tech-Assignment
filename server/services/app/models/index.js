@@ -16,7 +16,9 @@ class Tax {
     try {
       let query = {};
       if (role === "APPROVER") {
-        query.status = "Approved";
+        query = {
+          $or: [{ status: "Created" }, { status: "Checked" }],
+        };
       } else if (role === "CHECKER" || role === "MAKER") {
         query.status = "Created";
       } else if (role !== "ADMIN") {
@@ -53,13 +55,13 @@ class Tax {
       console.log(error);
     }
   }
-  static async update(id, status) {
+  static async update(id, userId, status) {
     try {
       const collection = await this.getCollection();
 
       const taxes = await collection.updateOne(
         { _id: ObjectId(id) },
-        { $set: { status } }
+        { $set: { status, updatedBy: userId } }
       );
 
       return taxes;
