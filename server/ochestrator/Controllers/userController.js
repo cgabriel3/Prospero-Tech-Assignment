@@ -1,7 +1,10 @@
 const { default: axios } = require("axios");
 
-const userPath = "http://localhost:4001";
-const taxPath = "http://localhost:4002";
+const userPath = "http://52.221.237.5:4001";
+const taxPath = "http://52.221.237.5:4002";
+
+// const userPath = "http://localhost:4001";
+// const taxPath = "http://localhost:4002";
 
 class UserController {
   static async read(req, res, next) {

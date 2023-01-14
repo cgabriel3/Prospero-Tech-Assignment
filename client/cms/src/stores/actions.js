@@ -1,6 +1,7 @@
 import { swalError, swalSuccess } from "../helpers/swal";
 
-const base_url = "http://localhost:4000/api";
+// const base_url = "http://localhost:4000/api";
+const base_url = "http://52.221.237.5:4000/api";
 
 export const fetchUsers = () => {
   return (dispatch) => {
