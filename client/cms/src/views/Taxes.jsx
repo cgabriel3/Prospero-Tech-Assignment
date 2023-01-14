@@ -89,18 +89,23 @@ export default function Taxes() {
                   {(loggedUser.role === "CHECKER" ||
                     loggedUser.role === "APPROVER") && (
                     <td>
-                      {el.status !== "Rejected" && (
-                        <Button
-                          variant="primary"
-                          onClick={() => {
-                            dispatch(fetchTaxDetail(el._id));
-                            setEdit(true);
-                          }}
-                          className="me-2"
-                        >
-                          Ubah
-                        </Button>
-                      )}
+                      {el.status !== "Rejected" &&
+                        loggedUser.role.charAt(0) +
+                          loggedUser.role.slice(1, -1).toLowerCase() +
+                          "d" !==
+                          el.status && (
+                          <Button
+                            variant="primary"
+                            onClick={() => {
+                              dispatch(fetchTaxDetail(el._id));
+                              setEdit(true);
+                            }}
+                            className="me-2"
+                          >
+                            Ubah
+                          </Button>
+                        )}
+
                       {/* <Button
                       onClick={() => dispatch(deleteTax(el._id))}
                       variant="danger"
