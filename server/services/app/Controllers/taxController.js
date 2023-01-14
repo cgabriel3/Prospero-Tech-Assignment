@@ -31,6 +31,9 @@ class TaxController {
       if (!receiptNumber) throw { name: "bad_request" };
       const { _id } = req.user;
 
+      const tax = await Tax.findOne(receiptNumber);
+      if (tax) throw { name: "tax_registered" };
+
       await Tax.create({
         receiptNumber,
         createdAt: new Date(),

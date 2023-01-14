@@ -89,6 +89,16 @@ class Tax {
       console.log(error);
     }
   }
+  static async findOne(receiptNumber) {
+    try {
+      const collection = await this.getCollection();
+      const tax = await collection.findOne({ receiptNumber });
+
+      return tax;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = Tax;

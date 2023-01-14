@@ -33,6 +33,9 @@ class UserController {
         throw { name: "bad_request" };
       }
 
+      const user = await User.findOne(email);
+      if (user) throw { name: "email_registered" };
+
       await User.create({
         email,
         password,
