@@ -1,67 +1,72 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateTax } from "../stores/actions";
 import { useEffect } from "react";
 
 export default function FormTaxEdit(props) {
-  const [status, setStatus] = useState("");
-
   const dispatch = useDispatch();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(updateTax(props?.taxDetail?._id, status)).then((_) => {
-      props.onHide();
-    });
-  };
-
-  useEffect(() => {
-    setStatus(props.taxDetail?.status);
-  }, [props.show, props.taxDetail]);
 
   return (
     <Modal
       {...props}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="contained-modal-title-vcenter" className="ms-2 my-1">
           Ubah Status Pajak
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group as={Col} md="12" className="mb-3">
-            <Form.Label>Posisi</Form.Label>
-            <Form.Select
-              aria-label="Pilih Status"
-              name="status"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+        <p className="lead pb-3 ms-2">
+          Nomor Resi : {props?.taxDetail?.receiptNumber}
+        </p>
+        <div className="container d-flex justify-content-center my-4">
+          {props.role === "CHECKER" && (
+            <Button
+              variant="primary"
+              onClick={() => {
+                dispatch(updateTax(props?.taxDetail?._id, "Checked")).then(
+                  (_) => {
+                    props.onHide();
+                  }
+                );
+              }}
+              className="me-5"
             >
-              <option value={""} disabled selected>
-                Open this select menu
-              </option>
-              {["Created", "Checked", "Rejected", "Approved"].map((el, i) => (
-                <option value={el} key={i}>
-                  {el}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group as={Col} md="2" className="mb-3">
-            <Button type="submit" className="float-end mt-3 me-3">
-              Submit
+              <h1 className="h5 fw-bolder m-2">Check</h1>
             </Button>
-          </Form.Group>
-        </Form>
+          )}
+          {props.role === "APPROVER" && (
+            <Button
+              variant="primary"
+              onClick={() => {
+                dispatch(updateTax(props?.taxDetail?._id, "Approved")).then(
+                  (_) => {
+                    props.onHide();
+                  }
+                );
+              }}
+              className="me-5"
+            >
+              <h1 className="h5 fw-bolder m-2">Approve</h1>
+            </Button>
+          )}
+          <Button
+            onClick={() => {
+              dispatch(updateTax(props?.taxDetail?._id, "Rejected")).then(
+                (_) => {
+                  props.onHide();
+                }
+              );
+            }}
+            variant="danger"
+          >
+            <h1 className="h5 fw-bolder m-2">Reject</h1>
+          </Button>
+        </div>
       </Modal.Body>
     </Modal>
   );

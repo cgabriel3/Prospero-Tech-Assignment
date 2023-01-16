@@ -28,7 +28,6 @@ export default function FormUser(props) {
 
   const handleChange = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
-    console.log(input);
   };
 
   const handleSubmit = (event) => {

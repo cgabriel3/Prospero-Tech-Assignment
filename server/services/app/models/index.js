@@ -16,11 +16,23 @@ class Tax {
     try {
       let query = {};
       if (role === "APPROVER") {
-        query.status = "Approved";
-      } else if (role === "CHECKER" || role === "MAKER") {
-        query.status = "Created";
-      } else if (role !== "ADMIN") {
-        throw { name: "forbidden" };
+        query = {
+          $or: [
+            { status: "Rejected" },
+            { status: "Checked" },
+            { status: "Approved" },
+          ],
+        };
+      } else if (role === "CHECKER") {
+        query = {
+          $or: [
+            { status: "Rejected" },
+            { status: "Created" },
+            { status: "Checked" },
+          ],
+        };
+      } else if (role === "MAKER") {
+        query = { status: "Created" };
       }
       const collection = await this.getCollection();
       const taxes = await collection
@@ -53,13 +65,13 @@ class Tax {
       console.log(error);
     }
   }
-  static async update(id, status) {
+  static async update(id, userId, status) {
     try {
       const collection = await this.getCollection();
 
       const taxes = await collection.updateOne(
         { _id: ObjectId(id) },
-        { $set: { status } }
+        { $set: { status, updatedBy: userId } }
       );
 
       return taxes;
@@ -71,6 +83,16 @@ class Tax {
     try {
       const collection = await this.getCollection();
       const tax = await collection.findOne({ _id: ObjectId(id) });
+
+      return tax;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  static async findOne(receiptNumber) {
+    try {
+      const collection = await this.getCollection();
+      const tax = await collection.findOne({ receiptNumber });
 
       return tax;
     } catch (error) {

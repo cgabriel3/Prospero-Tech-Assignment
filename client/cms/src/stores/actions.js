@@ -1,6 +1,7 @@
 import { swalError, swalSuccess } from "../helpers/swal";
 
 const base_url = "http://localhost:4000/api";
+// const base_url = "http://52.221.237.5:4000/api";
 
 export const fetchUsers = () => {
   return (dispatch) => {
@@ -85,7 +86,6 @@ export const fetchTaxDetail = (id) => {
 };
 export const createUser = (obj) => {
   return (dispatch) => {
-    console.log(obj);
     return fetch(`${base_url}/users`, {
       method: "post",
       headers: {
@@ -200,7 +200,7 @@ export const updateTax = (id, str) => {
   };
 };
 export const deleteTax = (id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return fetch(`${base_url}/pajak/${id}`, {
       method: "delete",
       headers: { access_token: localStorage.access_token },

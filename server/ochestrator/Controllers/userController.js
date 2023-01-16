@@ -1,5 +1,8 @@
 const { default: axios } = require("axios");
 
+// const userPath = "http://52.221.237.5:4001";
+// const taxPath = "http://52.221.237.5:4002";
+
 const userPath = "http://localhost:4001";
 const taxPath = "http://localhost:4002";
 
@@ -12,7 +15,7 @@ class UserController {
       });
       res.status(status).json(data);
     } catch (error) {
-      // console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async delete(req, res, next) {
@@ -27,7 +30,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async create(req, res, next) {
@@ -43,7 +46,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async update(req, res, next) {
@@ -60,7 +63,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async login(req, res, next) {
@@ -74,7 +77,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
   static async findOne(req, res, next) {
@@ -89,7 +92,7 @@ class UserController {
 
       res.status(status).json(data);
     } catch (error) {
-      console.log(error);
+      res.status(error.response.status).json(error.response.data);
     }
   }
 }

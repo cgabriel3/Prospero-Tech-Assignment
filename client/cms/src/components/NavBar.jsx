@@ -3,13 +3,13 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchUserDetail } from "../stores/actions";
+// import { fetchUserDetail } from "../stores/actions";
 import FormUser from "./FormUser";
 
 export default function NavBar() {
   const { loggedUser } = useSelector((state) => state);
   const [modalShow, setModalShow] = useState(false);
-  const { users, userDetail } = useSelector((state) => state);
+  const { userDetail } = useSelector((state) => state);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ export default function NavBar() {
             title={loggedUser.name}
             // className="align-items-center"
           >
-            <Dropdown.Item
+            {/* <Dropdown.Item
               href="#"
               onClick={(e) => {
                 e.preventDefault();
@@ -63,7 +63,7 @@ export default function NavBar() {
             >
               Ubah Akun
             </Dropdown.Item>
-            <Dropdown.Divider />
+            <Dropdown.Divider /> */}
             <Dropdown.Item href="#" onClick={handleLogout}>
               Log Out
             </Dropdown.Item>

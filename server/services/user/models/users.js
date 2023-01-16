@@ -15,7 +15,10 @@ class User {
   static async read() {
     try {
       const collection = await this.getCollection();
-      const users = await collection.find().toArray();
+      const users = await collection
+        .find()
+        .project({ email: 1, role: 1, name: 1 })
+        .toArray();
 
       return users;
     } catch (error) {
@@ -85,6 +88,16 @@ class User {
       const user = await collection.findOne({ _id: ObjectId(id) });
 
       return user;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  static async getList() {
+    try {
+      const collection = await this.getCollection();
+      const users = await collection.find().project({ name: 1 }).toArray();
+
+      return users;
     } catch (error) {
       console.log(error);
     }
