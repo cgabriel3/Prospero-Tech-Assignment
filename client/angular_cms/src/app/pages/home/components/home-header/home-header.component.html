@@ -1,0 +1,33 @@
+<mat-card class="mb-4">
+  <div class="flex justify-between pt-6 pb-2 px-3">
+    <div>
+      <button mat-button [matMenuTriggerFor]="sort">
+        Sort by Date
+        <!-- <mat-icon>expand_more</mat-icon> -->
+      </button>
+      <mat-menu #sort>
+        <button mat-menu-item>desc</button>
+        <button mat-menu-item>asc</button>
+      </mat-menu>
+    </div>
+    <div class="flex items-center">
+      <div>
+        <button mat-button [matMenuTriggerFor]="menu">
+          Show 12
+          <!-- <mat-icon>expand_more</mat-icon> -->
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>12</button>
+          <button mat-menu-item>24</button>
+          <button mat-menu-item>36</button>
+        </mat-menu>
+      </div>
+      <button>
+        <mat-icon>view_list</mat-icon>
+      </button>
+      <button>
+        <mat-icon>table_view</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
