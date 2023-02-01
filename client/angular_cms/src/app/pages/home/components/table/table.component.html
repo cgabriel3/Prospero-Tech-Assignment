@@ -1,37 +1,50 @@
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
-    <!-- Position Column -->
+<mat-card
+  *ngIf="dataSource.length"
+  class="max-w-7xl min-h-full mx-auto border-x"
+>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
     <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.position }}</mat-cell>
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let el">
+        {{ el?._id }}
+      </td>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+    <ng-container matColumnDef="receiptNumber">
+      <th mat-header-cell *matHeaderCellDef>Receipt Number</th>
+      <td mat-cell *matCellDef="let el">
+        <p class="truncate max-w-xs block">{{ el?.receiptNumber }}</p>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>Updated At</th>
+      <td mat-cell *matCellDef="let el">
+        <span class="truncate max-w-xs">{{ el?.createdAt }}</span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="updatedBy">
+      <th mat-header-cell *matHeaderCellDef>Updated By</th>
+      <td mat-cell *matCellDef="let el">{{ el?.updatedBy?.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let el">
+        {{ el?.status }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let el">
+        <button mat-mini-fab color="warn" class="float-right">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef>Weight</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef>Symbol</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.symbol }}</mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
-    aria-label="Select page of periodic elements"
-  >
-  </mat-paginator>
-</div>
+</mat-card>
+<mat-card *ngIf="!dataSource.length" class="max-w-7xl"
+  ><p>Empty Data</p>
+</mat-card>

@@ -3,6 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatIconModule } from "@angular/material/icon";
@@ -19,6 +20,13 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { HomeHeaderComponent } from "./pages/home/components/home-header/home-header.component";
 import { FiltersComponent } from "./pages/home/components/filters/filters.component";
 import { TableComponent } from "./pages/home/components/table/table.component";
+import { LoginComponent } from "./pages/login/login.component";
+
+import { UserService } from "./services/user.service";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TaxService } from "./services/tax.service";
+import { JwtInterceptor } from "./helpers/jwt.interceptor";
 
 @NgModule({
   declarations: [
@@ -28,6 +36,7 @@ import { TableComponent } from "./pages/home/components/table/table.component";
     HomeHeaderComponent,
     FiltersComponent,
     TableComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,8 +51,15 @@ import { TableComponent } from "./pages/home/components/table/table.component";
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    UserService,
+    TaxService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
