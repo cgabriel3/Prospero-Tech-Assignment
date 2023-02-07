@@ -1,0 +1,15 @@
+<app-navbar></app-navbar>
+<mat-drawer-container
+  [autosize]="true"
+  class="min-h-full max-w-7xl mx-auto border-x"
+>
+  <mat-drawer mode="side" opened class="p-6">
+    <app-filters></app-filters>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="w-[96%] mx-auto pt-4">
+      <!-- <app-home-header></app-home-header> -->
+      <app-table></app-table>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,8 @@
+<mat-toolbar class="max-w-7xl mx-auto border-x justify-between align-center">
+  <a routerLink="/home">Home</a>
+  <button mat-button [matMenuTriggerFor]="userController">tes@mail.com</button>
+  <mat-menu #userController>
+    <button mat-menu-item>User Setting</button>
+    <button mat-menu-item>Log Out</button>
+  </mat-menu>
+</mat-toolbar>

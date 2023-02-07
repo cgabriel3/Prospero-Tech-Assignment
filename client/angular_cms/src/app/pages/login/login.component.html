@@ -1,0 +1,64 @@
+<div class="h-[100vh] flex bg-slate-200">
+  <div class="w-full max-w-md m-auto">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="bg-white shadow-md shadow-slate-400 rounded px-8 pt-6 pb-8 mb-4"
+    >
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email"
+          >Email</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline form-control"
+          id="email"
+          type="email"
+          placeholder="user@mail.com"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"
+        />
+        <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+          <div *ngIf="f['username'].errors['required']">
+            Username is required
+          </div>
+        </div>
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password"
+          >Password</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline form-control"
+          id="password"
+          type="password"
+          placeholder="************"
+          formControlName="password"
+          [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+        />
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <div *ngIf="f['password'].errors['required']">
+            Password is required
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-between">
+        <button
+          [disabled]="loading"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm me-1"
+          ></span>
+          Login
+        </button>
+        <a
+          routerLink="../register"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Register
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
